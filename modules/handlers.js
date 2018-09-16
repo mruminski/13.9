@@ -7,10 +7,12 @@ exports.upload = function(request, response) {
   var form = new formidable.IncomingForm();
   form.parse(request, function(error, fields, files) {
     mv(files.upload.path, './test.png');
-    response.writeHead(200, {'Content-Type': 'text/html'});
-    response.write('Received file:<br/>');
-    response.write('<img src="/show" />');
-    response.end();
+    fs.readFile('templates/upload.html', function(err, file) {
+      if (err) throw err;
+      response.writeHead(200, {'Content-Type': 'text-plain; charset=utf-8'});
+      response.write(file);
+      response.end();
+    });
   });
  }
 
@@ -36,5 +38,5 @@ exports.show = function(request, response) {
     response.writeHead(200, {'Content-Type': 'image/png'});
     response.write(file, 'binary');
     response.end();
-  })
+  });
 }
