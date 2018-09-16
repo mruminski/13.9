@@ -28,8 +28,12 @@ exports.welcome = function(request, response) {
 
 exports.error = function(request, response) {
   console.log('error');
-  response.write('404');
-  response.end();
+  fs.readFile('templates/404.html', function(err, file) {
+    if (err) throw err;
+    response.writeHead(200, {'Content-Type': 'text-plain; charset=utf-8'});
+    response.write(file);
+    response.end();
+  });
 }
 
 exports.show = function(request, response) {
