@@ -1,3 +1,5 @@
+var fs = require('fs');
+
 exports.upload = function(request, response) {
   console.log('upload');
   response.write('Upload started!');
@@ -6,8 +8,12 @@ exports.upload = function(request, response) {
 
 exports.welcome = function(request, response) {
   console.log('home');
-  response.write('Welcome on the home page');
-  response.end();
+  fs.readFile('templates/start.html', function(err, file) {
+    if (err) throw err;
+    response.writeHead(200, { 'Content-Type': 'text-plain; charset=utf-8'});
+    response.write(file);
+    response.end();
+  });
 }
 
 exports.error = function(request, response) {
