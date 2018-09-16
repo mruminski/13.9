@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/mruminski/13.9#readme",
   "dependencies": {
+    "colors": "^1.3.2",
     "nodemon": "^1.18.4"
   }
 }
